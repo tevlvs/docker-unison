@@ -7,18 +7,18 @@ MAINTAINER Leigh McCulloch
 COPY container /
 
 # Allow setting these on build
-ARG UNISON_VERSION=${UNISON_VERSION}
-ARG OCAML_VERSION=${OCAML_VERSION}
+ARG UNISON_VERSION=2.51.2
+ARG OCAML_VERSION=4.06
 
 # Build and install Unison versions then cleanup
-RUN apt-get update
-RUN curl -LO http://download.opensuse.org/repositories/home:ocaml/xUbuntu_14.04/Release.key
-RUN apt-key add - < Release.key
-RUN apt-get update
-RUN dependencies-install.sh
-RUN unison-install.sh
-RUN dependencies-purge.sh
-RUN rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
+RUN apt-get update -y \
+ && curl -LO http://download.opensuse.org/repositories/home:ocaml/xUbuntu_14.04/Release.key \
+ && apt-key add - < Release.key \
+ && apt-get update -y \
+ && dependencies-install.sh \
+ && unison-install.sh \
+ && dependencies-purge.sh \
+ && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 # Set default Unison configuration
 ENV UNISON_WORKING_DIR=/unison

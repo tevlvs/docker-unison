@@ -1,7 +1,7 @@
 # Docker-Unison
 A docker volume container using [Unison](http://www.cis.upenn.edu/~bcpierce/unison/) for fast two-way folder sync. Created as an alternative to [slow boot2docker volumes on OS X](https://github.com/boot2docker/boot2docker/issues/593).
 
-The docker image is available on Docker Hub: 
+The docker image is available on Docker Hub:
 [registry.hub.docker.com/u/leighmcculloch/unison/](https://registry.hub.docker.com/u/leighmcculloch/unison/)
 
 ## Usage
@@ -33,17 +33,17 @@ If you are using Docker Compose to manage a dev environment, use the `volumes_fr
 The following `docker-compose.yml` would mount the `/unison` folder from the `unison` container inside your `mywebserver` container.
 
 ```yaml
-mywebserver:  
-  build: .  
-  volumes_from:  
-    - unison  
-unison:  
-  image: leighmcculloch/unison:latest  
-  environment:  
-    - UNISON_WORKING_DIR=/unison  
+mywebserver:
+  build: .
+  volumes_from:
+    - unison
+unison:
+  image: leighmcculloch/unison:latest
+  environment:
+    - UNISON_WORKING_DIR=/unison
   volumes:
     - /unison
-  ports:  
+  ports:
     - "5000:5000"
 ```
 
@@ -60,10 +60,11 @@ $ fswatch -o . | xargs -n1 -I{} unison . socket://<docker>:5000/ -ignore 'Path .
 ```
 
 ## Installing Unison Locally
-Unison requires the version of the client (running on the host) and server (running in the container) to match. 
+Unison requires the version of the client (running on the host) and server (running in the container) to match.
 
  * 2.40.102 (available via `apt-get install unison` on Ubuntu 14.04, 14.10, 15.04) [compiled with ocaml 4.01]
  * 2.48.3 (available via `brew install unison` on Mac OS X) [compiled with ocaml 4.02]
+ * 2.51.2 (available via `brew install unison` on Mac OS X) [compiled with ocaml 4.06]
 
 ## Available Unison Images
 This docker repository includes common versions of Unison server compiled with different versions of OCaml. The version you need can be selected by choosing the appropriately tagged image from the docker hub repository. Images are tagged in the format:
@@ -72,7 +73,7 @@ This docker repository includes common versions of Unison server compiled with d
 VERSION-[unisonUNISON_VERSION[-OCAML_VERSION]]
 ```
 
-Supported versions are any combination of the following:  
+Supported versions are any combination of the following:
 
  * Unison 2.40.102 and 2.48.3
  * OCaml 4.01 and 4.02
